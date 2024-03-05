@@ -3,12 +3,12 @@ My portfolio to showcase my skillsets and knowledge
 
 Report 1: tcpdump Incident Report: Network Traffic Analysis
 
-Provide a summary of the problem found in the DNS and ICMP traffic log.
+Summary of log.
 
 The UDP protocol log reveals that the IP request did not complete due to the port receiving DNS request (port 53) did not allow entry. The ICMP echo reply returned the error message: “domain: 35084+ A?” and “port 53 unreachable”, this ICMP message reply indicates that the DNS request did not get past port 53 and the request was not processed. Port 53 is designated to direct traffic into servers for DNS request processing. The most likely issue might be firewall misconfiguration or traffic overload (DoS attack).
 
 
-Analysis of the data and identify possible cause of the incident.
+Analyse and identify possible cause of the incident.
 
 Time incident occurred: 13:24:32.192571, which is 1:24 p.m. at 32.192571 seconds. Several customers failed to access the client website and saw an error message “destination port unreachable”, then reported the issue to the company.
 IT team immediately investigated to identify affected network protocol utilizing tcpdump to attempt to load the website again, which then led to the discovery of the ICMP reply for the UDP protocol (DNS request) indicating that port 53 was unreachable, which is the port on a server that is used for DNS requests. The likely cause would actually be a DoS attack. Several customers being unable to reach the server would reduce the likelihood that the firewall on the server viewed all requests, including the IT technician’s IP address as suspicious traffic. Multiple devices trying to access a single server being denied where all the requests did not even get to enter the port of the server, would more likely be the result of a DoS attack where the traffic overload has denied entry of genuine requests. 
